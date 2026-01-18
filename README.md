@@ -1,23 +1,37 @@
 # Productivity Management Dashboard API (FastAPI + PostgreSQL)
 
-A simple productivity backend API where users can **register, login, and manage tasks** (create, view, update, delete).  
-Includes a **basic frontend** to test the API easily.
+Backend API for a productivity dashboard where users can **register, login, and manage tasks** (CRUD) securely.  
+Includes a **basic frontend** for quick testing.
 
-## Features
-- User Registration
-- User Login (JWT Token)
-- Task CRUD (Create, Read, Update, Delete)
-- Task Filters (status, priority) + Search (by title)
-- Basic Frontend with notifications
-- PostgreSQL Database
+---
+
+## Features ✅
+### Authentication
+- User registration
+- User login
+- JWT token generation
+
+### Task Management
+- Create task
+- View all tasks (only for logged-in user)
+- Update task
+- Delete task
+
+### Search & Filtering
+- Filter by `status`
+- Filter by `priority`
+- Search by `title`
+
+### Frontend
+- Register + Login
+- Token auto-saved after login
+- Toast notifications (Registered ✅, Logged in ✅, Task created ✅)
+
+---
 
 ## Tech Stack
 - Backend: **FastAPI (Python)**
 - Database: **PostgreSQL**
 - ORM: **SQLAlchemy**
-- Authentication: **JWT**
+- Auth: **JWT**
 - Frontend: **HTML + CSS + JavaScript**
-
----
-
-## Project Structure
