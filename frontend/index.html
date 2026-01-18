@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 16px; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+    input, select, button { padding: 10px; margin: 6px 0; width: 100%; box-sizing: border-box; }
+    button { cursor: pointer; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .small { font-size: 12px; opacity: 0.8; }
+
+    #toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #111;
+      color: white;
+      padding: 12px 14px;
+      border-radius: 10px;
+      display: none;
+      max-width: 280px;
+      font-size: 14px;
+    }
+
+    .task {
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .task-left { display: flex; flex-direction: column; gap: 3px; }
+    .task-title { font-weight: bold; }
+    .pill { display: inline-block; padding: 4px 8px; border-radius: 999px; border: 1px solid #ddd; font-size: 12px; width: fit-content; }
+    .actions { display: flex; gap: 8px; }
+    .btn-small { padding: 8px 10px; width: auto; }
+  </style>
+</head>
+<body>
+
+  <h2>Productivity Dashboard</h2>
+  <p class="small">FastAPI + PostgreSQL | Token auto-saved after login</p>
+
+  <div id="toast"></div>
+
+  <div class="card">
+    <h3>Account</h3>
+
+    <div class="row">
+      <div>
+        <h4>Register</h4>
+        <input id="reg_name" placeholder="Name" />
+        <input id="reg_email" placeholder="Email" />
+        <input id="reg_pass" placeholder="Password (min 6 chars)" type="password" />
+        <button onclick="registerUser()">Register</button>
+      </div>
+
+      <div>
+        <h4>Login</h4>
+        <input id="login_email" placeholder="Email" />
+        <input id="login_pass" placeholder="Password" type="password" />
+        <button onclick="loginUser()">Login</button>
+        <button onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+
+    <p><b>Status:</b> <span id="login_status">Not logged in</span></p>
+  </div>
+
+  <div class="card">
+    <h3>Create Task</h3>
+
+    <input id="task_title" placeholder="Title" />
+    <input id="task_desc" placeholder="Description" />
+
+    <div class="row">
+      <div>
+        <select id="task_priority">
+          <option>LOW</option>
+          <option selected>MEDIUM</option>
+          <option>HIGH</option>
+        </select>
+      </div>
+      <div>
+        <select id="task_status">
+          <option selected>PENDING</option>
+          <option>IN_PROGRESS</option>
+          <option>COMPLETED</option>
+        </select>
+      </div>
+    </div>
+
+    <button onclick="createTask()">Create Task</button>
+  </div>
+
+  <div class="card">
+    <h3>Your Tasks</h3>
+
+    <div class="row">
+      <div>
+        <select id="filter_status">
+          <option value="">All Status</option>
+          <option value="PENDING">PENDING</option>
+          <option value="IN_PROGRESS">IN_PROGRESS</option>
+          <option value="COMPLETED">COMPLETED</option>
+        </select>
+      </div>
+      <div>
+        <select id="filter_priority">
+          <option value="">All Priority</option>
+          <option value="LOW">LOW</option>
+          <option value="MEDIUM">MEDIUM</option>
+          <option value="HIGH">HIGH</option>
+        </select>
+      </div>
+    </div>
+
+    <input id="filter_search" placeholder="Search by title..." />
+
+    <div class="actions">
+      <button class="btn-small" onclick="loadTasks()">Refresh</button>
+      <button class="btn-small" onclick="clearFilters()">Clear Filters</button>
+    </div>
+
+    <div id="task_list"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
